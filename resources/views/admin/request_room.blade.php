@@ -25,7 +25,7 @@
                             <td>{{$data->date}}</td>
                             <td>
                                 @if ($data->status == "approve")
-                                <form action="{{ route('admin.request.room.done') }}" method="POST"
+                                <form action="{{ route('admin.request.room.done') }}" id="done_form" method="POST"
                                     style="display: inline;">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$data->id}}">
@@ -82,6 +82,24 @@
                 timer: 15000
             })
         });
+    });
+
+    document.querySelector('#done_form').addEventListener('submit', function (e) {
+        var form = this;
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to Done this booking?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, Done it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
     });
 
 </script>

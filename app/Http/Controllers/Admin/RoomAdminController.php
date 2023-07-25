@@ -67,7 +67,7 @@ class RoomAdminController extends Controller
         $tampilan = BookingRoom::join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
         ->join('times', 'booking_rooms.time_id', '=', 'times.id')
         ->join('users', 'booking_rooms.id_users', '=', 'users.id')
-        ->where('booking_rooms.status','!=', 'done')
+        ->whereIn('booking_rooms.status', ['approve', 'pending'])
         ->select('booking_rooms.*', 'rooms.nama_room', 'times.time','users.id_student')->get();
         // dd($tampilan);
         return view('admin.request_room', compact('tampilan'));
@@ -145,20 +145,18 @@ class RoomAdminController extends Controller
     function history()
     {
         $bookingRooms = BookingRoom::join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
-            ->where('booking_rooms.status', 'done')
+            ->whereIn('booking_rooms.status', ['done','reject'])
             ->join('users', 'booking_rooms.id_users', '=', 'users.id')
             ->join('times', 'booking_rooms.time_id', '=', 'times.id')
             ->select('booking_rooms.*', 'rooms.nama_room', 'users.id_student', 'times.time')
             ->get();
 
         $bookingPal = BookingPAL::join('pals', 'booking_pals.pal_id', '=', 'pals.id')
-            ->where('booking_pals.status', 'done')
+            ->whereIn('booking_pals.status', ['done','reject'])
             ->join('users', 'booking_pals.id_users', '=', 'users.id')
             ->join('majors', 'majors.id', '=', 'pals.major_id')
             ->select('booking_pals.*', 'pals.nama_pal', 'users.id_student', 'pals.handphone_pal', 'majors.name')
             ->get();
-
-            // dd($bookingPal);
        
         return view('admin.history', compact('bookingRooms', 'bookingPal'));
     }

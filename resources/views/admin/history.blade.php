@@ -17,11 +17,11 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                        @if ($bookingRooms->isEmpty())
-                            <td colspan="5" class="text-center">No Data</td>
-                        @endif
                         @foreach ($bookingRooms as $item)
+                        <tr>
+                            @if ($bookingRooms->isEmpty())
+                            <td colspan="5" class="text-center">No Data</td>
+                            @endif
                             <td>
                                 {{$item->id_student}}
                             </td>
@@ -35,11 +35,11 @@
                             <td>
                                 {{$item->status}}
                             </td>
-                        @endforeach
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
-            </div>       
+            </div>
         </div>
     </div>
 
@@ -59,13 +59,13 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-            
+
                     <tbody>
                         <tr>
-                        @if ($bookingPal->isEmpty())
+                            @if ($bookingPal->isEmpty())
                             <td colspan="5" class="text-center">No Data</td>
-                        @endif
-                        @foreach ($bookingPal as $item)
+                            @endif
+                            @foreach ($bookingPal as $item)
                             <td>
                                 {{$item->id_student}}
                             </td>
@@ -75,19 +75,19 @@
                             <td>
                                 {{$item->handphone_pal}}
                             </td>
-                            
+
                             <td>
                                 {{$item->name}}
                             </td>
-            
+
                             <td>
                                 {{$item->status}}
                             </td>
-                        @endforeach
+                            @endforeach
                         </tr>
                     </tbody>
                 </table>
-            </div>      
+            </div>
         </div>
     </div>
 </div>

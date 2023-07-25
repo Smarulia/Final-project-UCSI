@@ -56,7 +56,7 @@ class PalAdminController extends Controller
             ->join('majors', 'majors.id', '=', 'pals.major_id')
             ->join('users', 'users.id', '=', 'booking_pals.id_users')
             ->select('booking_pals.*', 'pals.nama_pal', 'majors.name','users.id_student')
-            ->where('booking_pals.status', '!=','done')
+            ->whereIn('booking_pals.status', ['pending', 'approved'])
             ->get();
         // dd($tampilan);
         return view('admin.request_pal', compact('tampilan'));

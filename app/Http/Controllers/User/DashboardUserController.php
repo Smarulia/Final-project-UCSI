@@ -24,7 +24,7 @@ class DashboardUserController extends Controller
     {
         $bookingRooms = BookingRoom::join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
             ->where('booking_rooms.id_users', Auth::user()->id)
-            ->where('booking_rooms.status', '!=', 'done')
+            ->whereIn('booking_rooms.status', ['Approve','Pending'])
             ->join('users', 'booking_rooms.id_users', '=', 'users.id')
             ->select('booking_rooms.*', 'rooms.nama_room', 'users.id_student')
             ->get();

@@ -25,11 +25,11 @@
 
                             <td>
                                 @if ($request_pal->status == "approved")
-                                <form action="{{ route('admin.request.pal.done') }}" method="POST"
+                                <form action="{{ route('admin.request.pal.done') }}" id="done_form" method="POST"
                                     style="display: inline;">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$request_pal->id}}">
-                                    <button type="submit" id="btn_reject" class="btn btn-success">Done</button>
+                                    <button type="submit" id="btn_done" class="btn btn-success">Done</button>
                                 </form>
                                 @else
                                 <form action="{{ route('admin.request.pal.approve') }}" method="POST"
@@ -72,16 +72,34 @@
         });
     });
 
-    ApproveButton.forEach(button => {
+    Rejectbutton.forEach(button => {
         button.addEventListener('click', () => {
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Data has been Delete',
+                title: 'Data has been Rejected',
                 showConfirmButton: false,
                 timer: 15000
             })
         });
+    });
+
+    document.querySelector('#done_form').addEventListener('submit', function (e) {
+        var form = this;
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to Done this booking?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, Done it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
     });
 
 </script>
