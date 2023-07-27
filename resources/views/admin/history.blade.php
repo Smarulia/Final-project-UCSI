@@ -2,14 +2,14 @@
 <div class="col-md-12">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Discussion Room</h6>
+            <h6 class="m-0 font-weight-bold text-primary">HIstory Discussion Room</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>id student</th>
+                            <th>ID Number</th>
                             <th>Discussion Room</th>
                             <th>Time</th>
                             <th>Status</th>
@@ -45,14 +45,14 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Discussion Room</h6>
+            <h6 class="m-0 font-weight-bold text-primary">History P.A.L</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>id student</th>
+                            <th>ID Number</th>
                             <th>PAL Name</th>
                             <th>Phone Number</th>
                             <th>Course Name and Code</th>
@@ -61,11 +61,12 @@
                     </thead>
 
                     <tbody>
+                    @foreach ($bookingPal as $item)
                         <tr>
                             @if ($bookingPal->isEmpty())
                             <td colspan="5" class="text-center">No Data</td>
                             @endif
-                            @foreach ($bookingPal as $item)
+                           
                             <td>
                                 {{$item->id_student}}
                             </td>
@@ -83,8 +84,9 @@
                             <td>
                                 {{$item->status}}
                             </td>
-                            @endforeach
+                            
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
