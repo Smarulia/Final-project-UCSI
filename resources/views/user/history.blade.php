@@ -1,14 +1,16 @@
 @include('user.partials._header')
 <div class="col-md-12">
-   
-        
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">History Discussion Room</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                @if ($bookingRooms->isEmpty())
+                <p class="text-center">No Data</p>
+                @else
+                <table class="table table-bordered" id="" width="100%" cellspacing="0">
+
                     <thead>
                         <tr>
                             <th>ID Number</th>
@@ -19,12 +21,10 @@
                     </thead>
 
                     <tbody>
-                    @foreach ($bookingRooms as $item)
+
+                        @foreach ($bookingRooms as $item)
                         <tr>
-                        @if ($bookingRooms->isEmpty())
-                            <td colspan="5" class="text-center">No Data</td>
-                        @endif
-                        
+
                             <td>
                                 {{$item->id_student}}
                             </td>
@@ -38,23 +38,26 @@
                             <td>
                                 {{$item->status}}
                             </td>
-                        
+
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>       
+                @endif
+            </div>
         </div>
     </div>
-   
-    @if (Auth::user()->role != "culture")
-    <div class="card shadow mb-4"> 
 
+    @if (Auth::user()->role != "culture")
+    <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">History P.A.L</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                @if ($bookingPal->isEmpty())
+                <p class="text-center">No Data</p>
+                @else
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -65,35 +68,20 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-            
                     <tbody>
-                        <tr>
-                        @if ($bookingPal->isEmpty())
-                            <td colspan="5" class="text-center">No Data</td>
-                        @endif
                         @foreach ($bookingPal as $item)
-                            <td>
-                                {{$item->id_student}}
-                            </td>
-                            <td>
-                                {{$item->nama_pal}}
-                            </td>
-                            <td>
-                                {{$item->handphone_pal}}
-                            </td>
-                            
-                            <td>
-                                {{$item->name}}
-                            </td>
-            
-                            <td>
-                                {{$item->status}}
-                            </td>
-                        @endforeach
+                        <tr>
+                            <td>{{ $item->id_student }}</td>
+                            <td>{{ $item->nama_pal }}</td>
+                            <td>{{ $item->handphone_pal }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->status }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
-            </div>      
+                @endif
+            </div>
         </div>
     </div>
     @endif

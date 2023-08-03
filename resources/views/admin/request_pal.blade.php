@@ -32,13 +32,13 @@
                                     <button type="submit" id="btn_done" class="btn btn-success">Done</button>
                                 </form>
                                 @else
-                                <form action="{{ route('admin.request.pal.approve') }}" method="POST"
+                                <form action="{{ route('admin.request.pal.approve') }}" id="approve_form" method="POST"
                                     style="display: inline;">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$request_pal->id}}">
                                     <button type="submit" id="btn_approve" class="btn btn-warning">Approve</button>
                                 </form>
-                                <form action="{{ route('admin.request.pal.reject') }}" method="POST"
+                                <form action="{{ route('admin.request.pal.reject') }}" id="reject_form" method="POST"
                                     style="display: inline;">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$request_pal->id}}">
@@ -84,17 +84,19 @@
         });
     });
 
-    document.querySelector('#done_form').addEventListener('submit', function (e) {
+   
+
+    document.querySelector('#approve_form').addEventListener('submit', function (e) {
         var form = this;
         e.preventDefault();
         Swal.fire({
             title: 'Are you sure?',
-            text: "You want to Done this booking?",
+            text: "You want to approve this booking?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, Done it!'
+            confirmButtonColor: '#5cb85c',
+            cancelButtonColor: '#d9534f',
+            confirmButtonText: 'Yes!'
         }).then((result) => {
             if (result.isConfirmed) {
                 form.submit();
@@ -102,4 +104,41 @@
         })
     });
 
+    document.querySelector('#reject_form').addEventListener('submit', function (e) {
+        var form = this;
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to reject this booking?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#5cb85c',
+            cancelButtonColor: '#d9534f',
+            confirmButtonText: 'Yes!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+    });
+</script>
+
+<script>
+     document.querySelector('#done_form').addEventListener('submit', function (e) {
+        var form = this;
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to Done this booking?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#5cb85c',
+            cancelButtonColor: '#d9534f',
+            confirmButtonText: 'Yes!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+    });
 </script>

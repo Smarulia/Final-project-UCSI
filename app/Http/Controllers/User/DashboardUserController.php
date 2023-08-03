@@ -118,7 +118,7 @@ class DashboardUserController extends Controller
     {
         $bookingPals = BookingPAL::select('booking_pals.*', 'pals.nama_pal', 'pals.nama_pal', 'pals.handphone_pal')
             ->join('pals', 'booking_pals.pal_id', 'pals.id')
-            ->whereIn('booking_pals.status', ['Approve','Pending'])
+            ->whereIn('booking_pals.status', ['Approved','Pending'])
             ->where('booking_pals.id_users', Auth::user()->id)
             ->get();
         $compactData = [
@@ -489,7 +489,7 @@ class DashboardUserController extends Controller
 
         $bookingPal = BookingPAL::join('pals', 'booking_pals.pal_id', '=', 'pals.id')
             ->where('booking_pals.id_users', Auth::user()->id)
-            ->where('booking_pals.status', 'done')
+            ->whereIn('booking_pals.status', ['done','rejected'])
             ->join('users', 'booking_pals.id_users', '=', 'users.id')
             ->join('majors', 'majors.id', '=', 'pals.major_id')
             ->select('booking_pals.*', 'pals.nama_pal', 'users.id_student', 'pals.handphone_pal', 'majors.name')
